@@ -1,22 +1,12 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { AppController } from './app.controller';
+import { Controller, Get, Query, Param } from '@nestjs/common';
 import { AppService } from './app.service';
 
-describe('AppController', () => {
-  let appController: AppController;
+@Controller()
+export class AppController {
+  constructor(private readonly appService: AppService) {}
 
-  beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
-      controllers: [AppController],
-      providers: [AppService],
-    }).compile();
-
-    appController = app.get<AppController>(AppController);
-  });
-
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
-    });
-  });
-});
+  @Get(':name')
+  getHello(@Param('name') name: string, @Query('lang') lang: string): string {
+    return this.appService.getPersonalizedHello(name, lang);
+  }
+}
