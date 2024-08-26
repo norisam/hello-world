@@ -22,13 +22,11 @@ describe('AppController', () => {
       const language = 'en';
       const color = '#FFFFFF';
 
-      jest.spyOn(appService, 'getPersonalizedHello').mockImplementation(() => {
-        return `Hello ${name}! Your preferred language is ${language} and color is ${color}.`;
-      });
+      const expectedGreeting = `<div style="background-color:${color}; padding: 20px;">Hello, ${name}!</div>`;
 
-      expect(appController.getGreeting(name, language, color)).toBe(
-        `Hello ${name}! Your preferred language is ${language} and color is ${color}.`
-      );
+      jest.spyOn(appService, 'getPersonalizedHello').mockReturnValue(expectedGreeting);
+
+      expect(appController.getGreeting(name, language, color)).toBe(expectedGreeting);
     });
 
     it('should return a personalized greeting with custom parameters', () => {
@@ -36,14 +34,11 @@ describe('AppController', () => {
       const language = 'es';
       const color = '#FF5733';
 
-      jest.spyOn(appService, 'getPersonalizedHello').mockImplementation(() => {
-        return `Hola ${name}! Your preferred language is ${language} and color is ${color}.`;
-      });
+      const expectedGreeting = `<div style="background-color:${color}; padding: 20px;">¡Hola, ${name}!</div>`;
 
-      expect(appController.getGreeting(name, language, color)).toBe(
-        `Hola ${name}! Your preferred language is ${language} and color is ${color}.`
-      );
+      jest.spyOn(appService, 'getPersonalizedHello').mockReturnValue(expectedGreeting);
+
+      expect(appController.getGreeting(name, language, color)).toBe(expectedGreeting);
     });
   });
 });
-
