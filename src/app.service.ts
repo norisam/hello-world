@@ -2,17 +2,21 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  getPersonalizedHello(name: string, language: string = 'en'): string {
+  getPersonalizedHello(name: string, language: 'en' | 'tr' | 'es' | 'fr' | 'de' = 'en', color: string = '#FFFFFF'): string {
+    let greeting: string;
+
     if (language === 'tr') {
-      return `Merhaba, ${name}!`;
+      greeting = 'Merhaba, ${name}!';
     } else if (language === 'es') {
-      return `¡Hola, ${name}!`;
+      greeting = '¡Hola, ${name}!';
     } else if (language === 'fr') {
-      return `Bonjour, ${name}!`;
+      greeting = 'Bonjour, ${name}!';
     } else if (language === 'de') {
-      return `Hallo, ${name}!`;
+      greeting = 'Hallo, ${name}!';
     } else {
-      return `Hello, ${name}!`;
+      greeting = 'Hello, ${name}!';
     }
+
+    return '<div style="background-color:${color}; padding: 20px;">${greeting}</div>';
   }
 }
